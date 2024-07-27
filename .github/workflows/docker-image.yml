@@ -29,23 +29,14 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Cache Docker layers
-      uses: actions/cache@v4
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
-
     - name: Build and push Docker image
       id: docker_build
       uses: docker/build-push-action@v6
       with:
         context: ./${{ matrix.path }}
+        file: ./Dockerfile
         platforms: linux/amd64,linux/arm64,linux/arm64/v8
         push: true
         tags: |
           ghcr.io/davidkk/${{ matrix.path }}:${{ github.ref == 'refs/heads/dev' && 'alpha' || github.ref == 'refs/tags/' && github.ref_name || 'latest' }}
           ${{ github.ref == 'refs/tags/' && 'ghcr.io/davidkk/${{ matrix.path }}:latest' }}
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
