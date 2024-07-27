@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y curl tar xz-utils python3 make g++ git chromium
 
-# # 安装 NodeJS 与 NPM
+# 安装 NodeJS 与 NPM
 RUN apt-get install -y nodejs npm
 
 # 安装 NodeJS 版本管理器

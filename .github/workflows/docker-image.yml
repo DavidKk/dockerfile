@@ -42,7 +42,10 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: ./${{ matrix.path }}
+        platforms: linux/amd64,linux/arm64,linux/arm64/v8
         push: true
         tags: |
           ghcr.io/davidkk/${{ matrix.path }}:${{ github.ref == 'refs/heads/dev' && 'alpha' || github.ref == 'refs/tags/' && github.ref_name || 'latest' }}
-          ghcr.io/davidkk/${{ matrix.path }}:latest
+          ${{ github.ref == 'refs/tags/' && 'ghcr.io/davidkk/${{ matrix.path }}:latest' }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
