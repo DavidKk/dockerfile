@@ -44,5 +44,5 @@ jobs:
         context: ./${{ matrix.path }}
         push: true
         tags: |
-          ghcr.io/DavidKk/${{ matrix.path }}:${{ github.ref == 'refs/heads/dev' && 'alpha' || github.ref == 'refs/tags/' && github.ref_name || 'latest' }}
-          ghcr.io/DavidKk/${{ matrix.path }}:latest
+          ghcr.io/davidkk/${{ matrix.path }}:${{ github.ref == 'refs/heads/dev' && 'alpha' || github.ref == 'refs/tags/' && github.ref_name || 'latest' }}
+          ghcr.io/davidkk/${{ matrix.path }}:latest
