@@ -1,3 +1,4 @@
+# debain 基础镜像 glibc 必须大于 2.33
 FROM debian:bookworm-slim AS builder
 
 # 更新并初始化
